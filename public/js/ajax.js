@@ -40,12 +40,13 @@ $(document).ready(function() {
                       // // display to DOM
                       btnImgDiv.append(beerBtn);
                       btnImgDiv.append("<p class='smallText'>favorite it?</p>");
+                      beerCaption.append(btnImgDiv);
                       beerCaption.append("<h3 id='beer' class='bname'>" + name + "</h3>");
                       beerCaption.append("<div class ='descDiv'>" + "<p class='productDescription'>" + desc + "</p>" + "</div");
                       beerCaption.append("<div class ='abvDiv'>" + "<p class='abv'>" + "ABV: " + abv + "</p>" + "</div");
                       beerCaption.append("<div class ='beerStyleDiv'>" + "<p class='beerStyle'>" + "Beer Style: " + beerStyle + "</p>" + "</div");
                       beerCaption.append("<div class ='BreweryDiv'>" + "<p class='Brewery'>" + "Brewery: " +brewery+ "</p>" + "</div")
-                      beerCaption.append(btnImgDiv);
+
 
 
                       // // building thumbnail
