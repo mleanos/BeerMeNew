@@ -17,11 +17,11 @@
               }
                   for (var i = rando; i < newCount; i++) {
                     // console.log("the name" + JSON.stringify(result));
-                    var test = $("<input type='text' name='name' id='name' class='form-control' value='{{user.name}}'>")
+                    var test = $("<input type='text' name='name' id='name' class='form-control'>")
                     var beerDiv = $("<div id='beerTime'  class ='productHolder thumbnail hero-feature beerDiv'>");
                     var beerCaption = $("<div class='caption'>");
                     var beerImage = $("<img>");
-                    var drinkBtn = $("<button type='text' name='name' class='btn-default colorbtn replace' value='{{user.name}}'>"+"Drink it"+"</button>");
+                    var drinkBtn = $("<button type='text' name='name' class='btn-default colorbtn replace'>"+"Drink it"+"</button>");
                     drinkBtn.attr("data-button", result.response.macro.items[i].beer.beer_name);
                     drinkBtn.on('click', function(){
                      var beername = $(this).attr("data-button");
@@ -31,7 +31,7 @@
                      replaceBeer();
                      var beerObject = {
                          beername: beername,
-                         user:user
+
                      };
                      $.post("/api/beers", beerObject)
                          .done(function(data) {

@@ -47,20 +47,23 @@ router.get('/logout', function(req, res) {
 
 router.get('/register', function(req, res, next) {
   res.render('register', { title: 'Registration' });
+
 });
 // get users info from database
-    router.get("/api/userdata", function(req, res) {
-        connection.query("SELECT * FROM users WHERE username=?", ["texast9018"], function(err, data) {
-            if (err) {
-                throw err;
-            }
-            else {
-                console.log(data);
-            }
-
-            res.json(data);
-        });
-    });
+    // router.get("/api/userdata", function(req, res) {
+    //   const db = require('../db.js');
+    //   console.log("the user"+ JSON.stringify(req.user));
+    //     db.query("SELECT * FROM users WHERE username=?", ["texast9018"], function(err, data) {
+    //         if (err) {
+    //             throw err;
+    //         }
+    //         else {
+    //             console.log(data);
+    //         }
+    //
+    //         res.json(data);
+    //     });
+    // });
 // post beers
     router.post("/api/beers", function(req, res) {
       console.log("beerInfo "+ req.body);
@@ -68,9 +71,8 @@ router.get('/register', function(req, res, next) {
 
       var newBeer = {
             beername: beername,
-            user: user,
         }
-        connection.query("INSERT INTO beers (beername, user) VALUES (?, ?)", [newBeer.beername, newBeer.user], function(err, res) {
+        connection.query("INSERT INTO beers (beername, user) VALUES (?, ?)", [newBeer.beername, req.user.user_id], function(err, res) {
           if(err) throw err;
         });
       });
@@ -114,7 +116,7 @@ router.get('/register', function(req, res, next) {
         });
 // get breweries
       router.get("/api/breweries", function(req, res) {
-        connection.query("SELECT * FROM breweries WHERE username=?", [39], function(err, data) {
+        db.query("SELECT * FROM breweries WHERE username=?", [39], function(err, data) {
             if (err) {
                 throw err;
             }
@@ -126,7 +128,8 @@ router.get('/register', function(req, res, next) {
         });
 // get users info from database
       router.get("/api/userdata", function(req, res) {
-        connection.query("SELECT * FROM users WHERE username=?", ["texast9018"], function(err, data) {
+        const db = require('../db.js');
+        db.query("SELECT * FROM users WHERE id=?", [req.user.user_id], function(err, data) {
             if (err) {
                 throw err;
             }
@@ -174,8 +177,9 @@ router.post('/register', function(req, res, next) {
       console.log(req.body.username);
       console.log(req.body.email);
       console.log(req.body.password);
-
       const db = require('../db.js');
+
+
       bcrypt.hash(password, saltRounds, function(err, hash) {
         db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hash], function(
         error, results, fields){
