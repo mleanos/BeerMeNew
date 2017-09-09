@@ -15,6 +15,11 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+// authenticate users
+app.use(function(req, res, next) {
+  res.locals.user = req.user ? req.user.toJSON() : null;
+  next();
+});
 
 require('dotenv').config();
 

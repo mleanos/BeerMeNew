@@ -17,18 +17,21 @@
               }
                   for (var i = rando; i < newCount; i++) {
                     // console.log("the name" + JSON.stringify(result));
+                    var test = $("<input type='text' name='name' id='name' class='form-control' value='{{user.name}}'>")
                     var beerDiv = $("<div id='beerTime'  class ='productHolder thumbnail hero-feature beerDiv'>");
                     var beerCaption = $("<div class='caption'>");
                     var beerImage = $("<img>");
-                    var drinkBtn = $("<button class='btn-default colorbtn replace'>"+"Drink it"+"</button>");
+                    var drinkBtn = $("<button type='text' name='name' class='btn-default colorbtn replace' value='{{user.name}}'>"+"Drink it"+"</button>");
                     drinkBtn.attr("data-button", result.response.macro.items[i].beer.beer_name);
                     drinkBtn.on('click', function(){
                      var beername = $(this).attr("data-button");
+                     var user = $(this).val();
+                     console.log("the value "+ $(this).val());
                      $(this).parents(".productHolder").hide();
                      replaceBeer();
                      var beerObject = {
                          beername: beername,
-                         user:39
+                         user:user
                      };
                      $.post("/api/beers", beerObject)
                          .done(function(data) {
@@ -38,7 +41,7 @@
                              console.log("THIS FAILED");
                          });
                     });
-                    var passBtn = $("<button class='btn-default colorbtn'>"+"Eww Gross"+"</button>");
+                    var passBtn = $("<button class='btn-default'>"+"Eww Gross"+"</button>");
                     passBtn.on('click', function(){
                      $(this).parents(".productHolder").hide();
                      replaceBeer();
@@ -73,7 +76,6 @@
                     beerDiv.append(drinkBtn);
                     beerDiv.append(passBtn);
                     beerDiv.append(btnImgDiv);
-
                     $('#displayArea').append(beerDiv);
                   }
         }});
