@@ -8,8 +8,7 @@
         $.ajax({url: baseUrl + searchBeer + clientId + clientSecret, success: function(result){
               $('#displayArea').empty();
               var theCount = result.response.macro.count;
-              var rando = Math.floor((Math.random() * theCount) + 1);;
-              console.log("rondom number "+rando);
+              var rando = Math.floor((Math.random() * theCount) + 1);
               var newCount = rando + 1;
               if (newCount > theCount) {
                 newCount = rando;
@@ -18,27 +17,28 @@
                   for (var i = rando; i < newCount; i++) {
                     // console.log("the name" + JSON.stringify(result));
                     var test = $("<input type='text' name='name' id='name' class='form-control'>")
+                    var beertopPart = $("<div class='btopart'>");
                     var beerDiv = $("<div id='beerTime'  class ='productHolder thumbnail hero-feature beerDiv'>");
                     var beerCaption = $("<div class='caption'>");
                     var beerImage = $("<img>");
                     var drinkBtn = $("<button type='text' name='name' class='btn-default colorbtn replace'>"+"Drink it"+"</button>");
                     drinkBtn.attr("data-button", result.response.macro.items[i].beer.beer_name);
                     drinkBtn.on('click', function(){
-                     var beername = $(this).attr("data-button");
-                     var user = $(this).val();
-                     console.log("the value "+ $(this).val());
+                    event.preventDefault();
+                     var beername = $(this).attr("data-button").toString();
+                    //  console.log("the value "+ $(this).attr("data-button"));
                      $(this).parents(".productHolder").hide();
                      replaceBeer();
                      var beerObject = {
                          beername: beername,
-
                      };
                      $.post("/api/beers", beerObject)
                          .done(function(data) {
                              console.log(data);
                          })
                          .fail(function(error) {
-                             console.log("THIS FAILED");
+                             console.log("THIS FAILED DUDE");
+                             console.log("the error "+ JSON.stringify(error));
                          });
                     });
                     var passBtn = $("<button class='btn-default'>"+"Eww Gross"+"</button>");
@@ -55,11 +55,11 @@
                     beerBtn.attr("onClick", "this.src = './images/colored.png'");
                     beerBtn.attr("data-button",result.response.macro.items[i].beer.beer_name);
                     //
-                    var btnImgDiv = $("<div class='btnImgDiv'>");
-                    btnImgDiv.append(beerBtn);
-                    btnImgDiv.append("<p class='smallText'>favorite it?</p>");
+                    // var btnImgDiv = $("<div class='btnImgDiv'>");
+                    beertopPart.append(beerBtn);
+                    // btnImgDiv.append(beerBtn);
+                    // btnImgDiv.append("<p class='smallText'>favorite it?</p>");
                     var name = result.response.macro.items[i].beer.beer_name;
-                    // var desc = result.response.macro.items[i].beer.beer_description;
                     var abv = result.response.macro.items[i].beer.beer_abv;
                     var beerStyle = result.response.macro.items[i].beer.beer_style;
                     var brewed = result.response.macro.items[i].brewery.brewery_name;
@@ -71,11 +71,12 @@
                     beerCaption.append("<div class ='brewingDiv'>" + "<p class='brew'>" + "Brewery: " + brewed + "</p>" + "</div");
 
                   //   // // building thumbnail
+                    beerDiv.append(beertopPart);
                     beerDiv.append(beerImage);
                     beerDiv.append(beerCaption);
                     beerDiv.append(drinkBtn);
                     beerDiv.append(passBtn);
-                    beerDiv.append(btnImgDiv);
+                    // beerDiv.append(btnImgDiv);
                     $('#displayArea').append(beerDiv);
                   }
         }});
@@ -85,7 +86,7 @@
           function replaceBeer(){
             $.ajax({url: baseUrl + searchBeer + clientId + clientSecret, success: function(result){
                   var theCount = result.response.macro.count;
-                  var rando = Math.floor((Math.random() * theCount) + 1);;
+                  var rando = Math.floor((Math.random() * theCount) + 1);
                   if (rando === theCount) {
                     rando = rando - 1;
                   }
@@ -94,6 +95,8 @@
                         var beerCaption = $("<div class='caption'>");
                         var beerImage = $("<img>");
                         var drinkBtn = $("<button class='btn-default colorbtn replace'>"+"Drink it"+"</button>");
+                        var beertopPart = $("<div class='btopart'>");
+
                         drinkBtn.attr("data-button", result.response.macro.items[i].beer.beer_name);
                         drinkBtn.on('click', function(){
                            var beername = $(this).attr("data-button");
@@ -125,9 +128,10 @@
                         beerBtn.attr("onClick", "this.src = './images/colored.png'");
                         beerBtn.attr("data-button",result.response.macro.items[i].beer.beer_name);
                         //
-                        var btnImgDiv = $("<div class='btnImgDiv'>");
-                        btnImgDiv.append(beerBtn);
-                        btnImgDiv.append("<p class='smallText'>favorite it?</p>");
+                        beertopPart.append(beerBtn);
+                        // var btnImgDiv = $("<div class='btnImgDiv'>");
+                        // btnImgDiv.append(beerBtn);
+                        // btnImgDiv.append("<p class='smallText'>favorite it?</p>");
                         var name = result.response.macro.items[i].beer.beer_name;
                         // var desc = result.response.macro.items[i].beer.beer_description;
                         var abv = result.response.macro.items[i].beer.beer_abv;
@@ -138,11 +142,12 @@
                         beerCaption.append("<div class ='abvDiv'>" + "<p class='abv'>" + "ABV: " + abv + "</p>" + "</div");
                         beerCaption.append("<div class ='beerStyleDiv'>" + "<p class='beerStyle'>" + "Beer Style: " + beerStyle + "</p>" + "</div");
                       //   // // building thumbnail
+                        beerDiv.append(beertopPart);
                         beerDiv.append(beerImage);
                         beerDiv.append(beerCaption);
                         beerDiv.append(drinkBtn);
                         beerDiv.append(passBtn);
-                        beerDiv.append(btnImgDiv);
+                        // beerDiv.append(btnImgDiv);
                         $('#displayArea').append(beerDiv);
                       }
             }});

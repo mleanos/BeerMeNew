@@ -20,6 +20,7 @@ $(document).ready(function() {
                   // console.log("the count " + result.response.beers);
                     for (var i = 0; i < result.response.beers.count; i++) {
                       // console.log("the name" + result.response.beers.items[i].beer.beer_name)
+                      var beertopPart = $("<div class='btopart'>");
                       var beerDiv = $("<div class ='productHolder thumbnail beerDiv'>");
                       var beerCaption = $("<div class='caption'>");
                       var beerImage = $("<img>");
@@ -38,9 +39,7 @@ $(document).ready(function() {
                       var abv = result.response.beers.items[i].beer.beer_abv;
                       var beerStyle = result.response.beers.items[i].beer.beer_style;
                       // // display to DOM
-                      btnImgDiv.append(beerBtn);
-                      btnImgDiv.append("<p class='smallText'>favorite it?</p>");
-                      beerCaption.append(btnImgDiv);
+                      beertopPart.append(beerBtn);
                       beerCaption.append("<h3 id='beer' class='bname'>" + name + "</h3>");
                       beerCaption.append("<div class ='descDiv'>" + "<p class='productDescription'>" + desc + "</p>" + "</div");
                       beerCaption.append("<div class ='abvDiv'>" + "<p class='abv'>" + "ABV: " + abv + "</p>" + "</div");
@@ -50,6 +49,7 @@ $(document).ready(function() {
 
 
                       // // building thumbnail
+                      beerDiv.append(beertopPart)
                       beerDiv.append(beerImage);
                       beerDiv.append(beerCaption);
                       // beerDiv.append(beerBtn);

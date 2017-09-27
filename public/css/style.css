@@ -29,13 +29,16 @@ h1{
  td p{
    border-bottom: solid 1px #DDDDDD;
  }
+  /*Brewery Thumbnail*/
+  .brewImage{
+    max-height: 75px;
+
+  }
  /*Thumbnail*/
 .thumbnail .caption{
   padding-top: 0px !important;
 }
-#beer{
-  padding-bottom: 0px;
-}
+
 #beerTime > div.caption > h3{
   margin-top: 5px !important;
 }
@@ -140,10 +143,17 @@ h1{
     float: left;
 }
 .beerImage{
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
 }
+#beer{
+  width: 100%;
+  font-size: 1.25em;
 
+}
+.btopart{
+  float: right;
+}
 .brewDiv{
   width: 30%;
   float:left;
@@ -170,6 +180,10 @@ h1{
   height: 50px;
   border: none;
   margin-bottom: 5px;
+  width: 100%;
+}
+.descDiv{
+  padding-top: 2px;
 }
 .brewDescription{
   font-size: 1em !important;
@@ -291,9 +305,7 @@ margin: 0 auto;
   font-size: 10px !important;
   text-align: right;
 }
-#beerButton{
 
-}
 .jumbotron{
   background-color: white !important;
 
@@ -602,10 +614,6 @@ h1{
 .fleft{
     float: left;
 }
-.beerImage{
-  width: 100px;
-  height: 100px;
-}
 
 .beerDiv{
   width: 27%;
@@ -639,12 +647,7 @@ h1{
 .brew_search{
   width: 120px;
 }
-.productDescription{
-  font-size: 1em !important;
-  overflow-x: hidden;
-  height: 50px;
-  border: none;
-}
+
 .brewDescription{
   font-size: 1em !important;
   overflow-x: hidden;

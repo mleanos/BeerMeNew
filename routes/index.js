@@ -66,23 +66,22 @@ router.get('/register', function(req, res, next) {
     // });
 // post beers
     router.post("/api/beers", function(req, res) {
-      console.log("beerInfo "+ req.body);
-      const { beername, user } = req.body;
-
+      const db = require('../db.js');
+      const { beername } = req.body;
+      const theUser = req.user.user_id;
       var newBeer = {
             beername: beername,
         }
-        connection.query("INSERT INTO beers (beername, user) VALUES (?, ?)", [newBeer.beername, req.user.user_id], function(err, res) {
+        db.query("INSERT INTO beers (beername, user) VALUES (?, ?)", [newBeer.beername, theUser], function(err, res) {
           if(err) throw err;
         });
       });
 // post breweries
     router.post("/api/breweries", function(req, res) {
       console.log("brewinfo "+ req.body);
-      const { brewery, user } = req.body;
+      const { brewery} = req.body;
       var newBrew = {
             breweryname: brewery,
-            username: user,
         }
         connection.query("INSERT INTO breweries (breweryname, username) VALUES (?, ?)", [newBrew.breweryname, newBrew.username], function(err, res) {
           if(err) throw err;
@@ -103,7 +102,7 @@ router.get('/register', function(req, res, next) {
      });
 // get favorites
      router.get("/api/favorites", function(req, res) {
-        connection.query("SELECT * FROM favorites WHERE theuser=?", [39], function(err, data) {
+        connection.query("SELECT * FROM favorites WHERE id=?", [req.user.user_id], function(err, data) {
             if (err) {
                 throw err;
             }
@@ -116,7 +115,7 @@ router.get('/register', function(req, res, next) {
         });
 // get breweries
       router.get("/api/breweries", function(req, res) {
-        db.query("SELECT * FROM breweries WHERE username=?", [39], function(err, data) {
+        db.query("SELECT * FROM breweries WHERE id=?", [req.user.user_id], function(err, data) {
             if (err) {
                 throw err;
             }
@@ -141,7 +140,8 @@ router.get('/register', function(req, res, next) {
       });
 // get beerdata
       router.get("/api/beers", function(req, res) {
-          connection.query("SELECT * FROM beers WHERE user=?", [39], function(err, data) {
+        const db = require('../db.js');
+          db.query("SELECT * FROM beers WHERE id=?", [req.user.user_id], function(err, data) {
               if (err) {
                   throw err;
               }

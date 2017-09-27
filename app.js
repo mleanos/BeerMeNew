@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
-
+var sequelize = require('./sequelize.js');
 //Authentication Packages
 var session = require('express-session');
 var passport = require('passport');
