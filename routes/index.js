@@ -6,6 +6,7 @@ var passport = require('passport');
 
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
+var models = require('../models');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -127,16 +128,33 @@ router.get('/register', function(req, res, next) {
         });
 // get users info from database
       router.get("/api/userdata", function(req, res) {
-        const db = require('../db.js');
+        // const db = require('../db.js');
+        // console.log('models: ', models);
+        models.User.findOne({ where: { id: req.user.user_id } })
+          .then(user => {
+            console.log('found user from model findOne!');
+            console.log('user: ', user);
+            res.json(user);
+          })
+          .catch(err => {
+            console.log('err in User.findOne!');
+            console.log(err);
+            res.status(400).send({
+              message: err.message
+            });
+          });
+        /*
         db.query("SELECT * FROM users WHERE id=?", [req.user.user_id], function(err, data) {
             if (err) {
                 throw err;
             }
             else {
-                console.log(data);
+              console.log('found user!!');
+              console.log(data);
             }
             res.json(data);
         });
+        */
       });
 // get beerdata
       router.get("/api/beers", function(req, res) {

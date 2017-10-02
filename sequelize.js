@@ -1,3 +1,4 @@
+/*
 const Sequelize = require('sequelize');
 var orm = {};
 console.log("Info " + process.env.DB_NAME + process.env.DB_USER + process.env.DB_HOST);
@@ -28,3 +29,4 @@ User.sync().then(() => {
  module.exports = {
    User:User
  };
+*/
