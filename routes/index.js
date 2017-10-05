@@ -8,6 +8,8 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 var models = require('../models');
 
+var multer = require('multer');
+
 /* GET home page. */
 router.get('/', function(req, res) {
   console.log(req.user);
@@ -215,7 +217,46 @@ router.post('/register', function(req, res, next) {
         })
       });
     }
+      });
+
+// POST upload profile image
+router.post('/api/upload/user-profile-image', function (req, res) {
+  var upload = multer({
+    dest: './public/uploads/profile/images',
+    limits: { fileSize: 1000000 }
+  }).single('profileImage');
+
+  // Upload file
+  upload(req, res, function (uploadError) {
+    if (uploadError) {
+      console.log('upload error: ', uploadError);
+      return res.status(400).send({
+        message: 'Upload Failed!'
+      });
+    }
+
+    console.log('file: ', req.file);
+    console.log('filepage: ', req.file.path);
+
+    var profileImageUrl = 'uploads/profile/images/' + req.file.filename;
+
+    // find user by req.user.user_id
+    models.User.update({ profileImageUrl: profileImageUrl }, { where: { id: req.user.user_id } })
+      .then(user => {
+        // user update
+        console.log('updated user: ', user);
+
+        res.json(user);
+      })
+      .catch(err => {
+        // user find error send back response
+        return res.status(400).send({
+          message: err.message
+        });
+      });
+  });
 });
+
 passport.serializeUser(function(user_id, done) {
   done(null, user_id);
 });
