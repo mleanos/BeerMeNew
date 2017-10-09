@@ -1,16 +1,45 @@
-$.get("/api/userdata", function(response) {
+// setup profile image upload form submit handler
+$('#profileImageForm').submit(function () {
+
+  // add validation here to make sure have a file selected
+  if($('#profileImage').value != "") {
+   // you have a file
+
+  }
+  else {
+    alert("Please attach a file");
+  }
+
+  $(this).ajaxSubmit({
+    error: function (errorResponse) {
+      console.log('error response: ', errorResponse);
+    },
+    success: function (response) {
+      console.log('success response: ', response);
+      // add response handling here to show image on page
+        console.log("");
+      //  $(".displayDiv").
+    }
+  });
+
+  return false;
+});
+
+$.get("/api/userdata", function (response) {
+  console.log('response: ', response);
   var profileImage = $("<img  width='200' height='200' class='img-responsive img-circle'>");
   var blurbCaption = $("<div>")
-  var profileDiv = $("<div col-lg-3 col-lg-3 productHolder thumbnail hero-feature>")
-  profileImage.attr("src", response[0].image);
-  profileImage.attr("alt", response[0].username);
-  var name = response[0].username;
+  var profileDiv = $("<div class='col-lg-3 col-lg-3 productHolder thumbnail hero-feature'>")
+  profileImage.attr("src", './' + response.profileImageUrl);
+  profileImage.attr("alt", response.username);
+  var name = response.username;
   blurbCaption.append("<span class='personName'>" + name + "</span>");
   blurbCaption.append(profileImage);
   profileDiv.append(blurbCaption);
   $('.displayDiv').append(profileDiv);
 
 });
+/*
 $.get("/api/beers", function(response) {
   // console.log("The res: "+ response);
   var tableRow = $("<tr>");
@@ -70,7 +99,6 @@ $.get("/api/favorites", function(response) {
     }
       $("#howMany").append(howMany);
   });
-
   $.get("/api/breweries", function(response) {
       var tableRB = $("<tr>");
       var tableDB = $("<td>");
@@ -106,3 +134,4 @@ $.get("/api/favorites", function(response) {
       }
         $("#brewMany").append(howManybrew);
     });
+*/

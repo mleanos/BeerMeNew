@@ -34,3 +34,7 @@ npm-debug.log
 
 # Local env file with credentials
 .env
+
+# Ignore Uploads
+
+public/uploads
