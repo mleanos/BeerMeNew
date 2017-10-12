@@ -130,8 +130,8 @@ router.get('/register', function(req, res, next) {
         });
 // get users info from database
       router.get("/api/userdata", function(req, res) {
-        // const db = require('../db.js');
-        // console.log('models: ', models);
+        const db = require('../db.js');
+        console.log('models: ', models);
         models.User.findOne({ where: { id: req.user.user_id } })
           .then(user => {
             console.log('found user from model findOne!');

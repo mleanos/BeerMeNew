@@ -8,8 +8,8 @@
 
  console.log("Info " + process.env.DB_NAME + process.env.DB_USER + process.env.DB_HOST);
 
- const sequelize = new Sequelize("express-cc", "root","", {
-   host: 'local',
+ const sequelize = new Sequelize("express-cc", "root", "root", {
+   host: 'localhost',
    dialect: 'mysql',
    pool: {
      max: 5,
