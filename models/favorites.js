@@ -1,16 +1,16 @@
 'use strict';
 
  module.exports = function (sequelize, DataTypes) {
-   const Beer = sequelize.define('Beer', {
-     beername: DataTypes.STRING,
-     user: DataTypes.INTEGER
+   const Favorite = sequelize.define('Favorite', {
+     favorites: DataTypes.STRING,
+     theuser: DataTypes.INTEGER
   //  }, {
   //   classMethods: {
   //     associate: function (models) {
   //       Beer.belongsToMany(models.User);
-   // 
+   //
   //     }
   //   }
   });
-  return Beer;
+  return Favorite;
  };

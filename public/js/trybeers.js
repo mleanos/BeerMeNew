@@ -4,6 +4,8 @@
       var query = "q="
       var url = "https://api.untappd.com/v4/";
       var searchBeer = "beer/trending?";
+      var favorites = [];
+
       var baseUrl = "https://api.untappd.com/v4/";
         $.ajax({url: baseUrl + searchBeer + clientId + clientSecret, success: function(result){
               $('#displayArea').empty();
@@ -34,11 +36,11 @@
                      };
                      $.post("/api/beers", beerObject)
                          .done(function(data) {
-                             console.log(data);
+                             console.log("beers",data);
                          })
                          .fail(function(error) {
                              console.log("THIS FAILED DUDE");
-                             console.log("the error "+ JSON.stringify(error));
+                            //  console.log("the error "+ JSON.stringify(error));
                          });
                     });
                     var passBtn = $("<button class='btn-default'>"+"Eww Gross"+"</button>");
@@ -54,6 +56,21 @@
                     beerBtn.attr("src", "/images/pint.png");
                     beerBtn.attr("onClick", "this.src = './images/colored.png'");
                     beerBtn.attr("data-button",result.response.macro.items[i].beer.beer_name);
+
+                    beerBtn.on('click', function(){
+                      var beername = $(this).attr("data-button").toString();
+                        console.log(beername);
+                        console.log("favorites: ", favorites);
+                      if(favorites.indexOf(beername) !== -1){
+                        // add remove functionality here
+                        console.log("Beer already favorited");
+
+                      }
+                      else{
+                        addFavorite(beername);
+                      }
+                    });
+
                     //
                     // var btnImgDiv = $("<div class='btnImgDiv'>");
                     beertopPart.append(beerBtn);
@@ -69,8 +86,7 @@
                     beerCaption.append("<div class ='abvDiv'>" + "<p class='abv'>" + "ABV: " + abv + "</p>" + "</div");
                     beerCaption.append("<div class ='beerStyleDiv'>" + "<p class='beerStyle'>" + "Beer Style: " + beerStyle + "</p>" + "</div");
                     beerCaption.append("<div class ='brewingDiv'>" + "<p class='brew'>" + "Brewery: " + brewed + "</p>" + "</div");
-
-                  //   // // building thumbnail
+                    // building thumbnail
                     beerDiv.append(beertopPart);
                     beerDiv.append(beerImage);
                     beerDiv.append(beerCaption);
@@ -80,9 +96,23 @@
                     $('#displayArea').append(beerDiv);
                   }
         }});
+        function addFavorite(favbeer){
+          var favorite = {
+              favorites: favbeer
+          };
+          $.post("/api/favorites", favorite)
+              .done(function(data) {
+                  favorites.push(favbeer);
+              })
+              .fail(function(error) {
+                  console.log("THIS FAILED DUDE");
+                  // console.log("the error "+ JSON.stringify(error));
+              });
+        }
         $('.btn-default').on('click', function(){
           $("#beerTime").html("");
         });
+        // get a new beer
           function replaceBeer(){
             $.ajax({url: baseUrl + searchBeer + clientId + clientSecret, success: function(result){
                   var theCount = result.response.macro.count;
@@ -127,6 +157,19 @@
                         beerBtn.attr("src", "/images/pint.png");
                         beerBtn.attr("onClick", "this.src = './images/colored.png'");
                         beerBtn.attr("data-button",result.response.macro.items[i].beer.beer_name);
+                        beerBtn.on('click', function(){
+                          var beername = $(this).attr("data-button").toString();
+                            console.log(beername);
+                            console.log("favorites: ", favorites);
+                          if(favorites.indexOf(beername) !== -1){
+                            // add remove functionality here
+                            console.log("Beer already favorited");
+
+                          }
+                          else{
+                            addFavorite(beername);
+                          }
+                        });
                         //
                         beertopPart.append(beerBtn);
                         // var btnImgDiv = $("<div class='btnImgDiv'>");

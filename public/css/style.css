@@ -8,7 +8,8 @@ h1{
  h2 {
    font-family: 'Shrikhand', cursive;
    letter-spacing: 2px;
-   font-size: 42px;
+
+   color: #030D40 !important;
    margin-bottom: 15px !important;
  }
  h4{
@@ -143,7 +144,6 @@ h1{
     float: left;
 }
 .beerImage{
-  width: 75px;
   height: 75px;
 }
 #beer{
@@ -261,6 +261,12 @@ footer ul {
 }
 .displayDiv{
   margin: 0 auto;
+  overflow: auto;
+    width: 800px;
+}
+.sub-header{
+  border-top: solid 1px #030D40;
+  padding-top: 20px;
 }
 #displayArea{
   height: 470px;
@@ -275,6 +281,7 @@ footer ul {
   height: 800px;
   background-image: url("/images/beer.png");
 }
+
 .nolink h1 a{
   text-decoration: none;
 }
@@ -284,7 +291,7 @@ h4{
 #beerTime{
 margin: 0 auto;
 }
-#displayArea{
+.liquidimage{
   background-image: url("../images/beerLiquid.jpeg");
   background-size: 101% 600px;
   background-repeat: repeat-x;
@@ -309,9 +316,6 @@ margin: 0 auto;
 .jumbotron{
   background-color: white !important;
 
-}
-.moveOver{
-  margin-left: 40%;
 }
 .starButton{
   width: 40px;
@@ -714,9 +718,6 @@ footer ul {
 .container-fluid{
 
 }
-.displayDiv{
-  margin: 0 auto;
-}
 #displayArea{
   height: 470px;
 }
@@ -747,7 +748,6 @@ h4{
 }
 
 .moveOver{
-  margin-left: 40%;
 }
 .starButton{
   width: 40px;
